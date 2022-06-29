@@ -13,7 +13,7 @@ export class DevServer {
     this.server.listen(8080);
     
     this.assembly.$load.pipe(first()).subscribe(() => {
-      console.log('Started ewibs dev server on http://localhost:8080');
+      console.log(`Started ewibs dev server on http://localhost:8080/${assembly.settings.base || ''}`);
     });
   }
 
@@ -32,7 +32,8 @@ export class DevServer {
       return;
     }
 
-    const file = this.tryGettingFile(req.url?.slice(1));
+    const url = path.relative(this.assembly.settings.base || '/', req.url?.slice(1) || '')
+    const file = this.tryGettingFile(path.relative(this.assembly.settings.base || '/', req.url?.slice(1) || ''));
 
     if (!file) {
       res.writeHead(404);
