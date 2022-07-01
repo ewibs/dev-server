@@ -4,7 +4,8 @@ import path from 'path';
 
 import { DevServer } from '../dev-server';
 
-const baseUrl = path.resolve(__dirname, '../examples/simple/simple.ewibs');
+// const baseUrl = path.resolve(__dirname, '../examples/simple/simple.ewibs');
+const baseUrl = '/Users/simonrothert/pvt-projects/ewibs/website/website.ewibs';
 
 class TestAssembly extends Assembly {
 
@@ -19,4 +20,4 @@ class TestAssembly extends Assembly {
 
 const assembly = new TestAssembly(baseUrl);
 
-const server = new DevServer(assembly);
+const server = new DevServer(assembly, { port: 8082 });

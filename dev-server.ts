@@ -1,19 +1,26 @@
 import path from 'path';
 import { Assembly } from '@ewibs/assembly';
 import { createServer, IncomingMessage, Server, ServerResponse } from 'http';
-import { first } from 'rxjs';
+import { first, Subscriber, Subscription } from 'rxjs';
 
 import { DevServerConfig } from './models/config';
 
 export class DevServer {
   private readonly server: Server;
+  private readonly sub: Subscription;
 
-  constructor(private readonly assembly: Assembly, config: DevServerConfig = {}) {
+  get Address(): string { return `http://localhost:${this.Port}/${this.assembly.settings.base || ''}` }
+  get Port(): number { return this.config.port || 8080; }
+
+  constructor(
+    private readonly assembly: Assembly,
+    private readonly config: DevServerConfig = {}
+  ) {
     this.server = createServer((req, res) => this.response(req, res));
-    this.server.listen(8080);
-    
-    this.assembly.$load.pipe(first()).subscribe(() => {
-      console.log(`Started ewibs dev server on http://localhost:8080/${assembly.settings.base || ''}`);
+    this.server.listen(this.Port);
+
+    this.sub = this.assembly.$load.pipe(first()).subscribe(() => {
+      console.log(`Started ewibs dev server on ${this.Address}`);
     });
   }
 
@@ -42,5 +49,10 @@ export class DevServer {
     }
     res.writeHead(200);
     res.end(file);
+  }
+
+  destroy() {
+    this.server.close();
+    this.sub.unsubscribe();
   }
 }

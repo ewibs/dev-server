@@ -3,6 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
+    "target": "ES5",
     "module": "commonjs",
     "moduleResolution": "Node",
     "downlevelIteration": true,
