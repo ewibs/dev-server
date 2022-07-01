@@ -38,13 +38,19 @@ export class DevServer {
       res.end('The bundle is still loading');
       return;
     }
+    const base = `/${this.assembly.settings.base || ''}`;
+    if (!req.url?.startsWith(base)) {
+      res.writeHead(404);
+      res.end(`Invalid url base of url ${req.url}. Needs to start with ${base}`);
+      return;
+    }
 
-    const url = path.relative(this.assembly.settings.base || '/', req.url?.slice(1) || '')
-    const file = this.tryGettingFile(path.relative(this.assembly.settings.base || '/', req.url?.slice(1) || ''));
+    const fileNormalized = path.relative(base.slice(1), req.url.slice(1));
+    const file = this.tryGettingFile(fileNormalized);
 
     if (!file) {
       res.writeHead(404);
-      res.end(`Couldn't find '${req.url?.slice(1)}'`);
+      res.end(`Couldn't find '${fileNormalized}'`);
       return;
     }
     res.writeHead(200);
