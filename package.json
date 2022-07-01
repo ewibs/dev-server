@@ -1,6 +1,6 @@
 {
   "name": "@ewibs/dev-server",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "dev server for the ewibs framework",
   "main": "dev-server.js",
   "scripts": {
