@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/ewibs/dev-server#readme",
   "dependencies": {
-    "@ewibs/assembly": "^0.2.13",
+    "@ewibs/assembly": "^0.2.15",
     "rxjs": "^7.5.5"
   },
   "devDependencies": {

@@ -4,8 +4,7 @@ import path from 'path';
 
 import { DevServer } from '../dev-server';
 
-// const baseUrl = path.resolve(__dirname, '../examples/simple/simple.ewibs');
-const baseUrl = '/Users/simonrothert/pvt-projects/ewibs/website/website.ewibs';
+const baseUrl = path.resolve(__dirname, '../examples/simple/simple.ewibs');
 
 class TestAssembly extends Assembly {
 
